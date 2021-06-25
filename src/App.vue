@@ -1,12 +1,47 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <Header></Header>
+      <Sidenav></Sidenav>
     </div>
     <router-view/>
+
+    <div id="footer">
+      <Footer></Footer>
+    </div>
   </div>
 </template>
+
+<script>
+import Header from "./views/Header.vue";
+import Sidenav from "./views/Sidenav.vue";
+import Footer from "./views/Footer.vue";
+import { auth } from "./firebase/index"
+import { mapActions } from "vuex";
+
+export default {
+  components:{
+    Header,
+    Footer,
+    Sidenav
+  },
+    methods: {
+    ...mapActions(["setLoginUser", "deleteLoginUser", "fetchOrders"]),
+  },
+    beforeCreate() {
+    auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setLoginUser(user);
+        this.fetchOrders();
+      } else {
+        this.deleteLoginUser();
+        this.$store.state.orders = [];
+      }
+    });
+  },
+}
+</script>
+
 
 <style lang="scss">
 #app {
