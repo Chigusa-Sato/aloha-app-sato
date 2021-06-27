@@ -5,7 +5,7 @@
       <label>名前</label>
       <ValidationProvider name="名前" rules="required">
         <div slot-scope="Providerprops">
-          <input v-model="name" />
+          <input v-model="orderInfo.myName" />
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
@@ -13,7 +13,7 @@
       <label>メールアドレス</label>
       <ValidationProvider name="email" rules="required|email">
         <div slot-scope="Providerprops">
-          <input v-model="email" />
+          <input v-model="orderInfo.email" />
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
@@ -24,7 +24,7 @@
         :rules="{ required: true, regex: /^[0-9]{3}[-][0-9]{4}$/ }"
       >
         <div slot-scope="Providerprops">
-          <input type="text" v-model="zipcode" />
+          <input type="text" v-model="orderInfo.zipcode" />
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
@@ -32,7 +32,7 @@
       <label>住所</label>
       <ValidationProvider name="住所" rules="required">
         <div slot-scope="Providerprops">
-          <input v-model="address" />
+          <input v-model="orderInfo.address" />
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
@@ -43,19 +43,30 @@
         :rules="{ required: true, regex: /^[0-9]{3}[-][0-9]{4}[-][0-9]{4}$/ }"
       >
         <div slot-scope="Providerprops">
-          <input type="text" v-model="tel" />
+          <input type="text" v-model="orderInfo.tel" />
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
 
       <label>配達日時</label>
-      <p><input type="datetime-local" @change="checkDate" v-model="date" /></p>
-      <p class="error">{{ dateError }}</p>
+      <p>
+        <input
+          type="datetime-local"
+          @change="checkDate"
+          v-model="orderInfo.date"
+        />
+      </p>
+      <p class="error">{{ errorMessage.dateError }}</p>
 
       <label>支払方法</label>
-      <ValidationProvider  rules="oneOf:1,2">
-        <div  slot-scope="Providerprops">
-          <select name="payment" id="pay" value="支払い方法" v-model="pay" >
+      <ValidationProvider rules="oneOf:1,2">
+        <div slot-scope="Providerprops">
+          <select
+            name="payment"
+            id="pay"
+            value="支払い方法"
+            v-model="orderInfo.pay"
+          >
             <option value="1" id="1">代金引換</option>
             <option value="2" id="2">クレジットカード決済</option>
           </select>
@@ -69,25 +80,27 @@
         :rules="{ required: true, regex: /\d[0-9]{13}/g }"
       >
         <div slot-scope="Providerprops">
-          <input type="text" v-model="creditNum" maxLength="16" />
+          <input type="text" v-model="orderInfo.creditNum" maxLength="16" />
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
 
-      <button
-        @click="test"
-        :disabled="ObserverProps.invalid || !ObserverProps.validated"
-      >
+      <button :disabled="ObserverProps.invalid || !ObserverProps.validated">
         テスト
       </button>
     </ValidationObserver>
 
-    <router-link to="ordercomp"><button>注文する</button></router-link>
-    <router-view />
+    <!-- <router-link to="ordercomp"
+      > -->
+    <button @click="purchase">注文する</button>
+    <!-- </router-link
+    >
+    <router-view /> -->
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import { required, email, regex, oneOf } from "vee-validate/dist/rules";
 import {
   localize,
@@ -106,17 +119,21 @@ export default {
   name: "OrderInfo",
   data() {
     return {
-      name: "",
-      email: "",
-      zipcode: "",
-      address: "",
-      tel: "",
-      date: "",
-      dateError: "",
-      creditNum: "",
-      credit: "",
-      pay: "",
-      paymentError: "",
+      orderInfo: {
+        today: "jfghjg",
+        myName: "",
+        email: "",
+        zipcode: "",
+        address: "",
+        tel: "",
+        date: "",
+        creditNum: "",
+        credit: "",
+        pay: null,
+      },
+      errorMessage: {
+        dateError: "",
+      },
     };
   },
   components: {
@@ -124,11 +141,25 @@ export default {
     ValidationObserver,
   },
   methods: {
-    test() {
-      console.log("エラーテスト");
+    purchase() {
+      let today = new Date(); //履歴に表示する注文日時
+      let year = today.getFullYear();
+      let month = today.getMonth();
+      let day = today.getDate();
+      today = `${year}/${month + 1}/${day}`;
+      this.orderInfo.today = today;
+
+      this.$store.getters.cartItems.forEach((cartItem) => {
+        cartItem = { ...cartItem, ...this.orderInfo };
+        // this.$store.getters.cartItems.push(cartItem);
+        this.updateOrder({ id: cartItem.orderId, newOrder: cartItem });
+      });
+      console.log(this.$store.getters.cartItems);
     },
+    ...mapActions(["updateOrder"]),
+
     checkDate() {
-      const date = this.date;
+      const date = this.orderInfo.date;
       let today = new Date(); //日付選択で今日より前の日付を選べないようにする
       let thisYear = today.getFullYear();
       let thisMonth = ("00" + (today.getMonth() + 1)).slice(-2);
@@ -153,11 +184,11 @@ export default {
       );
       const selectedTimestamp = Math.floor(selectedDay / 1000);
       if (date === "") {
-        this.dateError = "配達日時を入力して下さい";
+        this.errorMessage.dateError = "配達日時を入力して下さい";
       } else if (nowTimestamp > selectedTimestamp) {
-        this.dateError = "今から3時間後の日時をご入力ください";
+        this.errorMessage.dateError = "今から3時間後の日時をご入力ください";
       } else {
-        this.dateError = "";
+        this.errorMessage.dateError = "";
       }
     },
   },

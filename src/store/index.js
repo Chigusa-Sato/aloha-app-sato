@@ -154,93 +154,245 @@ export default new Vuex.Store({
       },
     ],
     orders: [],
-    order_Log: [],
-
+    ordersLog: [],
   },
 
   mutations: {
-    setLoginUser(state, user) {
+    //ログイン情報の保持--------------------------------
+    setLoginUserMU(state, user) {
       state.login_user = user;
     },
-    deleteLoginUser(state) {
+
+    //ログアウト情報の保持---------------------------------
+    deleteLoginUserMU(state) {
       state.login_user = null;
     },
-    addOrder(state, { orderId, order }) {
-      //stateのoeders配列への商品追加処理
-      order.orderId = orderId; //firestoreで自動採番されるorderId(doc.id)
+
+    //storeへのオーダー情報追加処理
+    addOrderMU(state, { orderId, order }) {
+      //order={id:1, num:2, status:0}
+      let orderToMU = order;
+      orderToMU.orderId = orderId; //firestoreで自動採番されるorderId(doc.id)
+      state.orders.push(orderToMU);
+      console.log(orderToMU);
+      console.log(state.orders);
+    },
+    addOrderUserNullMU(state, order) {
       state.orders.push(order);
+    },
+    //カートから削除 store ログイン時 -------------------------------------------------
+    //db の orderId と store の orderId が一致するものを削除
+    deleteOrderMU(state, { orderItemId }) {
+      let deleteCartItem = state.orders.findIndex(
+        (order) => order.orderId === orderItemId
+      );
+      state.orders.splice(deleteCartItem, 1);
+    },
+
+    //カートから削除 store 未ログイン時
+    deleteOrderUserNull(state, order) {
+      let deleteCartItem = state.orders.findIndex(
+        (element) => element.itemId === order.id
+      );
+      state.orders.splice(deleteCartItem, 1);
+    },
+
+    //注文確定(storeのステータスを更新）
+    // updateOrderMU(state,newOrder){
+    //   state.orders=
+    // }
+    updateOrderMU(state, { id, newOrder }) {
+      console.log(newOrder);
+      state.orders.forEach((order) => {
+        if (order.orderId === id) {
+          order.status = newOrder.status;
+        }
+      });
+    },
+
+    addOrderLogMU(state, { id, order }) {
+      order.id = id;
+      let orderedItem = state.items.find((item) => item.id === order.itemId);
+      state.ordersLog.push(orderedItem);
+    },
+
+    fetchOrderMU(state, { orderId, order }) {
+      let pushData = order;
+      pushData.orderId = orderId;
+      state.orders.push(pushData);
+    },
+    cancelOrderMU(state, { cancelOrderId, cancelOrder }) {
+      state.orders.forEach((order) => {
+        if (cancelOrderId === cancelOrder.orderId) {
+          order.status = cancelOrder.status;
+        }
+      });
     },
   },
 
   actions: {
+    //ログイン系------------------------------------------------------------
     login() {
       console.log("ログイン");
       const google_auth_provider = new auth.GoogleAuthProvider();
       auth().signInWithRedirect(google_auth_provider);
     },
+    setLoginUser({ commit }, user) {
+      commit("setLoginUserMU", user);
+    },
+
+    //ログアウト系------------------------------------------------------------
     logout() {
       console.log("ログアウト");
       auth().signOut();
     },
-    setLoginUser({ commit }, user) {
-      commit("setLoginUser", user);
-    },
+
     deleteLoginUser({ commit }) {
-      commit("deleteLoginUser");
+      commit("deleteLoginUserMU");
     },
 
+    //カートに追加----------------------------------------------------------------
     addOrder({ getters, commit }, order) {
+      //orderはカート内商品の個数とステ-タスと商品名が入る。
+      console.log(order); //{id:1, num:2, status:0}
       //firestoreへ商品を追加（カート）
       if (getters.uid) {
-        order.userId = getters.uid;
+        //order.userId = getters.uid;
         db.collection(`users/${getters.uid}/orders`)
           .add(order)
           .then((doc) => {
-            console.log(doc.id);
-            commit("addOrder", { orderId: doc.id, order });
+            console.log(doc.id); //XDzXCTKhLgjqgpugNSuC
+            commit("addOrderMU", { orderId: doc.id, order });
           });
+      } else {
+        commit("addOrderUserNullMU", order);
       }
     },
+    //dbからカートや注文した商品の情報を取得---------------------------------------
     fetchOrders({ getters, commit }) {
+      console.log("actions");
       db.collection(`users/${getters.uid}/orders`)
         .get()
         .then((snapshot) => {
           snapshot.forEach((doc) => {
-            if (doc.data().status === 0) {
-              commit("addOrder", { orderId: doc.id, order: doc.data() });
-            } //else {
-              //commit("addOrderHistory", { id: doc.id, order: doc.data() });
-            //}
+            // console.log("doc.data()=" + JSON.stringify(doc.data()));
+            // if (doc.data().status === 0) {
+            //   commit("addOrderMU", { orderId: doc.id, order: doc.data() });
+            // } else {
+            //   commit("updateOrderMU", {
+            //     orderId: doc.id,
+            //     order: doc.data(),
+            //   });
+            // }
+            commit("fetchOrderMU", { orderId: doc.id, order: doc.data() });
+            console.log("actions fetch完了");
           });
+        });
+    },
+    //カートから削除 db ログイン時-------------------------------------------------------
+    deleteOrder({ getters, commit }, { orderItemId }) {
+      db.collection(`users/${getters.uid}/orders`)
+        .doc(orderItemId)
+        .delete()
+        .then(() => {
+          console.log("delete");
+          commit("deleteOrderMU", { orderItemId });
+        });
+    },
+    //カートから削除 未ログイン時------------------------------------------------------------------
+    deleteOrderUserNull({ commit }, crat) {
+      commit("deleteOrderUserNull", crat);
+    },
+
+    //注文確定（㏈ステータスを更新）----------------------------------------------------------
+    updateOrder({ getters, commit }, { id, newOrder }) {
+      if (newOrder.pay === "1") {
+        newOrder.status = 1;
+        console.log("代引き");
+      } else if (newOrder.pay === "2") {
+        newOrder.status = 2;
+        console.log("クレジットカード");
+      }
+      console.log(newOrder);
+      db.collection(`users/${getters.uid}/orders`)
+        .doc(id)
+        .update(newOrder)
+        .then(() => {
+          console.log(newOrder);
+          commit("updateOrderMU", { id, newOrder });
+        });
+    },
+    cancelOrder({ getters, commit }, { cancelOrderId, cancelOrder }) {
+      cancelOrder.status = 9;
+      console.log("cancelアクション" + cancelOrder.status);
+      db.collection(`users/${getters.uid}/orders`)
+        .doc(cancelOrderId)
+        .update(cancelOrder)
+        .then(() => {
+          commit("cancelOrderMU", { cancelOrderId, cancelOrder });
         });
     },
   },
 
   getters: {
+    //ログイン情報の加工（画面に表示するため）--------------------------------
     userName: (state) =>
       state.login_user
         ? `ようこそ、${state.login_user}さん`.displayName
         : "ログインしてください",
     photoURL: (state) => (state.login_user ? state.login_user.photoURL : ""),
+
     getItemById: (state) => (id) => state.items.find((item) => item.id === id),
-    uid: (state) => (state.login_user ? state.login_user.uid : null), //ログイン時はuidをセット。ログアウト時はカラ
+
+    //ログイン時はuidをセット。ログアウト時はnull---------------------------
+    uid: (state) => (state.login_user ? state.login_user.uid : null),
+
+    //カートのステータス（０）に合致する商品だけを抽出
     cart: (state) => {
       return state.orders.filter((order) => order.status === 0);
-    }, //statusが0の商品を抽出
+    },
 
-    cartItem: (state, getters) => {
-      return getters.cart.map((order) => {
-        let getItemInfo = state.items.find((item) => item.id == order.id);
-        let orderNum = state.orders.map((obj) => obj.num);
+    //商品情報を付与----------------------------------------------------------
+    cartItems: (state, getters) => {
+      let results= getters.cart.map((order) => {
+        let getItemInfo = state.items.find((item) => item.id === order.id); //itemsとordersの商品IDが一致しているもの
+        //let orderNum = state.orders.map((obj) => obj.num);
         let cartItemDetails = {
-          id: getItemInfo.id,
-          name: getItemInfo.name,
-          num: orderNum,
+          itemId: getItemInfo.id,
+          itemName: getItemInfo.name,
+          num: order.num,
+          orderId: order.orderId,
           price: getItemInfo.price,
           imagePath: getItemInfo.imagePath,
+          status: order.status,
         };
         return cartItemDetails;
       });
+      return results;
+    },
+
+    ordersLog: (state) => {
+      return state.orders.filter(
+        (order) =>
+          order.status === 1 || order.status === 2 || order.status === 9
+      );
+    },
+    logItems: (state, getters) => {
+      let results = getters.ordersLog.map((order) => {
+        let getItemInfo = state.items.find((item) => item.id === order.id); //itemsとordersの商品IDが一致しているもの
+        let logItemDetails = {
+          itemId: getItemInfo.id,
+          itemName: getItemInfo.name,
+          num: order.num,
+          orderId: order.orderId,
+          price: getItemInfo.price,
+          imagePath: getItemInfo.imagePath,
+          status: order.status,
+          today: order.today,
+        };
+        return logItemDetails;
+      });
+      return results;
     },
   },
 });

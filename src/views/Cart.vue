@@ -3,19 +3,22 @@
     <div>
       <h1>カート</h1>
       <div class="table">
-        <div class="table__line">
+        <!-- <div class="table__line">
+                    <div class="block table__title">pic</div>
           <div class="block table__title">商品名</div>
           <div class="block table__title">価格（税抜）</div>
           <div class="block table__title">個数</div>
           <div class="block table__title">計（税抜）</div>
-        </div>
+        </div> -->
         <div class="table_line" v-for="(cart, index) in carts" :key="index">
           <div class="block" table__img><img :src="cart.imagePath" /></div>
-          <div class="block">{{ cart.name }}</div>
-          <div class="block">{{ cart.num }}</div>
+          <div class="block">{{ cart.itemName }}</div>
+          <div class="block">{{ cart.num }}個</div>
           <div class="block">¥{{ cart.price }}</div>
-          <div class="block">¥{{ cartTotalPrice }}</div>
-          <div class="block table__title"><button @click="deleteItem">削除</button></div>
+          <div class="block">小計¥{{ cart.price * cart.num }}</div>
+          <div class="block table__title">
+            <button @click="deleteItem(cart)">削除</button>
+          </div>
         </div>
       </div>
 
@@ -29,25 +32,44 @@
 
 <script>
 import OrderInfo from "../components/order/orderInfo.vue";
-//import { mapGetters } from "vuex"
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
       orders: this.$store.state.orders,
-      cartTotalPrice: 100,
     };
   },
   components: {
     OrderInfo,
   },
-  methods:{
-    deleteItem(){
-      console.log("削除")
-    }
+
+  methods: {
+    deleteItem(cart) {
+      //引数cartは削除対象の商品
+      if (this.$store.state.login_user != null) {
+        console.log(this.$store.state.orders);
+        let orderItem = this.$store.state.orders.find(
+          (store) => store.orderId === cart.orderId
+        ); //storeのカートから削除対象の商品を特定
+        console.log(this.carts);
+        console.log(orderItem);
+        let orderItemId = orderItem.orderId;
+        this.deleteOrder({ orderItemId });
+      } else {
+        console.log("ロづインしなさい");
+        this.deleteOrderUserNull({ cart });
+      }
+    },
+    ...mapActions(["deleteOrder", "deleteOrderUserNull"]),
   },
+
   computed: {
+    // cart() {
+    //   return this.$store.getters.cart;
+    // },
     carts() {
-      return this.$store.getters.cartItem;
+      return this.$store.getters.cartItems;
       //orders配列内のstatusが0の商品に、商品名や価格、画像などの情報を付加したもの
       //（画面上に表示するため）
     },

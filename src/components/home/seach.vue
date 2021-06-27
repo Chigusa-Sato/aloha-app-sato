@@ -3,7 +3,7 @@
     <div>
       <input type="text" v-model="keyword" placeholder="type something" />
       <button @click="search">searh</button>
-      <p>{{ resultMessage }}</p>
+      <p v-show="searchItems.length===0">該当する商品がありません</p>
     </div>
     <div class="searchItems">
       <div
@@ -13,7 +13,7 @@
       >
         <router-link
           :to="{ name: 'ItemDetail', params: { itemid: searchItem.id } }"
-        >
+        >""
           <p>{{ searchItem.name }}</p>
           <img :src="searchItem.imagePath" />
           <p>{{ searchItem.price }}円</p>
@@ -28,27 +28,30 @@ export default {
   name: "Search",
   data() {
     return {
-      items: this.$store.state.items,
-      searchItems: [],
       keyword: "",
-      resultMessage: "",
+      //resultMessage:"",
+      searchItems: [],
     };
   },
   methods: {
     search() {
+      this.resultMessage=" "
       this.searchItems = [];
-      //keywordが空の場合--------------------------------
-      if (this.keyword === "") {
+      if (this.keyword === "") { //keywordが空の場合-
         return (this.resultMessage = "検索ワードを入力してください");
-      }
-      //keywordが入っていた場合---------------------------
-      let keyWord = this.keyword;
-      for (let i = 0; i < this.items.length; i++) {
-        let itemsName = this.items[i].name;
-        if (itemsName.indexOf(keyWord) > -1) {
-          this.searchItems.push(this.items[i]);
-        } else {
-          return (this.resultMessage = "該当する商品はありません");
+
+      } else if (this.keyword !== "") {//keywordが入っていた場合
+        for (let i = 0; i <= this.$store.state.items.length; i++) {
+          let itemsName = this.$store.state.items[i].name;
+
+          if (itemsName.indexOf(this.keyword) !== -1) {
+            this.resultMessage="検索結果";
+            this.searchItems.push(this.$store.state.items[i]);
+          } 
+          // if (itemsName.indexOf(this.keyword) == -1){
+          //         this.resultMessage="検索結果";
+          // }
+
         }
       }
     },

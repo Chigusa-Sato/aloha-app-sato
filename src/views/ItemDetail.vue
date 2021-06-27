@@ -35,7 +35,7 @@ export default {
       itemDetail: {},
       count: 0,
       totalPrice: 0,
-      storeOrder:this.$store.state.orders
+      storeOrder: this.$store.state.orders,
     };
   },
   methods: {
@@ -52,15 +52,15 @@ export default {
       }
     },
     addCart() {
-      console.log(this.itemDetail);
+      console.log("itemDetailログインしている");
       let order = {};
       order.id = this.itemDetail.id;
       order.num = this.count; //カートに入れた商品の個数
       order.status = 0; //注文前のステータス
       console.log(order);
       this.addOrder(order).then(() => {});
-      console.log(this.storeOrder)//storeのorder配列の中身
-      this.$router.push({name:"Cart"},()=>{});
+      console.log(order);
+      this.$router.push({ name: "Cart" }, () => {});
     },
     ...mapActions(["addOrder"]),
   },
