@@ -1,6 +1,5 @@
 <template>
     <div class="home">
-        <h1>Home</h1>
         <Search></Search>
         <Items></Items>
     </div>
@@ -19,8 +18,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+@import "../style/flocss.scss";
 .home{
-    background: palegoldenrod;
+    background: $color-default-white;
 }
 </style>

@@ -1,27 +1,35 @@
 <template>
-  <div>
-    <h1>商品詳細</h1>
-    <div class="detail">
-      <div class="detail__container">
-        <div class="detail__img">
-          <img :src="itemDetail.imagePath" />
+  <div class="l-detail">
+    <h1 class="o-page-title">商品詳細</h1>
+    <div class="l-detail__container">
+      <div>
+        <img :src="itemDetail.imagePath" class="l-detail__image" />
+      </div>
+      <div class="l-detail__text-container">
+        <div class="l-detail__text">
+          <p class="o-page-sub-title">{{ itemDetail.name }}</p>
         </div>
-        <div class="detail__name">
-          <p>{{ itemDetail.name }}</p>
-        </div>
-        <div class="detail__price">
+        <div class="l-detail__text">
           <p>¥{{ itemDetail.price }}(税抜)</p>
         </div>
-        <div class="detail__description">
+        <div class="l-detail__text">
           <p>{{ itemDetail.description }}</p>
         </div>
+        <div class="l-detail-add">
+          <img
+            :src="require('../assets/img/minus.png')"
+            class="o-logo"
+            @click="countMinus"
+          />
+          {{ count }}
+          <img :src="require('../assets/img/plus.png')"
+            class="o-logo" @click="countPlus"/>
+
+          <button @click="addCart" class="o-button--default">
+            カートに入れる ¥{{ totalPrice }}(税抜)
+          </button>
+        </div>
       </div>
-    </div>
-    <div>
-      <button @click="countMinus">-</button>
-      {{ count }}
-      <button @click="countPlus">+</button>
-      <button @click="addCart">カートに入れる ¥{{ totalPrice }}(税抜)</button>
     </div>
   </div>
 </template>
@@ -74,11 +82,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.detail {
-  display: flex;
-
-  img {
-    width: 50%;
-  }
-}
+@import "../style/flocss.scss";
 </style>

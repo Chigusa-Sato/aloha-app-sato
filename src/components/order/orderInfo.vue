@@ -25,9 +25,11 @@
       >
         <div slot-scope="Providerprops">
           <input type="text" v-model="orderInfo.zipcode" />
+
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
-      </ValidationProvider>
+      </ValidationProvider>        
+
 
       <label>住所</label>
       <ValidationProvider name="住所" rules="required">
@@ -36,6 +38,7 @@
           <p class="error">{{ Providerprops.errors[0] }}</p>
         </div>
       </ValidationProvider>
+      
 
       <label>電話番号</label>
       <ValidationProvider
@@ -74,33 +77,33 @@
         </div>
       </ValidationProvider>
 
-      <label>クレジットカード番号</label>
-      <ValidationProvider
-        name="クレジットカード番号"
-        :rules="{ required: true, regex: /\d[0-9]{13}/g }"
-      >
-        <div slot-scope="Providerprops">
-          <input type="text" v-model="orderInfo.creditNum" maxLength="16" />
-          <p class="error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
-
-      <button :disabled="ObserverProps.invalid || !ObserverProps.validated">
-        テスト
-      </button>
+      <div v-if="orderInfo.pay == '2'">
+        <label>クレジットカード番号</label>
+        <ValidationProvider
+          name="クレジットカード番号"
+          :rules="{ regex: /\d[0-9]{13}/g }"
+        >
+          <div slot-scope="Providerprops">
+            <input type="text" v-model="orderInfo.creditNum" maxLength="16" />
+            <p class="error">{{ Providerprops.errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+      </div>
+      <router-link to="ordercomp">
+        <button
+          @click="purchase"
+          :disabled="ObserverProps.invalid || !ObserverProps.validated"
+        >
+          注文する
+        </button>
+      </router-link>
+      <router-view />
     </ValidationObserver>
-
-    <!-- <router-link to="ordercomp"
-      > -->
-    <button @click="purchase">注文する</button>
-    <!-- </router-link
-    >
-    <router-view /> -->
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { required, email, regex, oneOf } from "vee-validate/dist/rules";
 import {
   localize,
@@ -129,7 +132,7 @@ export default {
         date: "",
         creditNum: "",
         credit: "",
-        pay: null,
+        pay: 0,
       },
       errorMessage: {
         dateError: "",
@@ -141,6 +144,10 @@ export default {
     ValidationObserver,
   },
   methods: {
+        getAddress() {
+      this.$store.commit("getAddress", this.zipcode);
+      this.$store.dispatch("getAddressAction");
+    },
     purchase() {
       let today = new Date(); //履歴に表示する注文日時
       let year = today.getFullYear();
@@ -192,10 +199,24 @@ export default {
       }
     },
   },
+  computed: {
+    ...mapGetters(["cartItems"]),
+    // isRequired:function(){
+    //   return  this.orderInfo.pay === "2"
+
+    // }
+    //     ...mapState({
+    //   zipcode: state => state.zipcode
+    // }),
+    // address() {
+    //   return this.$store.state.address;
+    // }
+
+  },
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .error {
   color: red;
 }

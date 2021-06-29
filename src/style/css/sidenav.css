@@ -1,0 +1,14 @@
+@charset "UTF-8";
+.l-sidebar {
+  background-color: #eedcdf;
+  /* position: fixed; 左上に要素を固定する(スクロールしても位置は固定される) */
+}
+
+.l-sidebar__menu-container:hover {
+  background: whitesmoke;
+}
+
+.l-sidebar__link {
+  text-decoration: none;
+}
+/*# sourceMappingURL=sidenav.css.map */

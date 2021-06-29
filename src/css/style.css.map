@@ -1,0 +1,16 @@
+{
+    "version": 3,
+    "mappings": ";AAAA,YAAY;AAEX,UAAU;AGFX,AAAA,QAAQ,CAAC;EACL,gBAAgB,EAAE,OAAkB;EAIpC,6EAA6E;CAc9E;;AATI,AACC,wBADS,AACR,MAAM,CAAC;EACN,UAAU,EAAE,UAAkB;CAC/B;;AAGJ,AAAD,cAAO,CAAC;EACN,eAAe,EAAE,IAAI;CACtB;;AHZJ,YAAY;AAIZ,gBAAgB;AAGhB,YAAY;AAGZ,aAAa",
+    "sources": [
+        "../style/style.scss",
+        "../style/layout/header.scss",
+        "../style/layout/main.scss",
+        "../style/layout/sidenav.scss",
+        "../style/layout/footer.scss",
+        "../style/object/component.scss",
+        "../style/object/project.scss",
+        "../style/object/utility.scss"
+    ],
+    "names": [],
+    "file": "style.css"
+}

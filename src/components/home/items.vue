@@ -1,12 +1,16 @@
 <template>
   <div>
-    <h1>All Items</h1>
-    <div class="items">
-      <div v-for="item in items" :key="item.id" class="item">
+    <p class="o-page-title">商品一覧</p>
+    <div class="l-card">
+      <div v-for="item in items" :key="item.id" class="l-card__aside">
         <router-link :to="{ name: 'ItemDetail', params: { itemid: item.id } }">
-          <p>{{ item.name }}</p>
-          <img :src="item.imagePath" />
-          <p>{{ item.price }}円</p>
+          <div class="l-card__figure">
+            <img :src="item.imagePath" class="l-card__image" />
+          </div>
+          <div class="l-card__content">
+            <p class="l-card__link">{{ item.name }}</p>
+            <p class="l-card__link">{{ item.price }}円</p>
+          </div>
         </router-link>
       </div>
     </div>
@@ -25,14 +29,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.items {
-  display: flex;
-  flex-wrap: wrap;
-}
-.item {
-  width: 25%;
-  img {
-    width: 90%;
-  }
-}
+@import "../../style/flocss.scss";
+
 </style>

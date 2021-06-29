@@ -34,7 +34,7 @@ export default new Vuex.Store({
       },
       {
         id: 4,
-        name: "カメハメハベーカリーの焼きたてマラサダ",
+        name: "ベーカリーのマラサダ",
         description:
           "ハワイの定番おやつといえば、やっぱりマラサダ。なかでも、カメハメハベーカリーのマラサダは、行列必至 の人気ぶりです。",
         price: 1900,
@@ -174,8 +174,6 @@ export default new Vuex.Store({
       let orderToMU = order;
       orderToMU.orderId = orderId; //firestoreで自動採番されるorderId(doc.id)
       state.orders.push(orderToMU);
-      console.log(orderToMU);
-      console.log(state.orders);
     },
     addOrderUserNullMU(state, order) {
       state.orders.push(order);
@@ -202,7 +200,6 @@ export default new Vuex.Store({
     //   state.orders=
     // }
     updateOrderMU(state, { id, newOrder }) {
-      console.log(newOrder);
       state.orders.forEach((order) => {
         if (order.orderId === id) {
           order.status = newOrder.status;
@@ -285,7 +282,6 @@ export default new Vuex.Store({
             //   });
             // }
             commit("fetchOrderMU", { orderId: doc.id, order: doc.data() });
-            console.log("actions fetch完了");
           });
         });
     },
@@ -338,7 +334,7 @@ export default new Vuex.Store({
     //ログイン情報の加工（画面に表示するため）--------------------------------
     userName: (state) =>
       state.login_user
-        ? `ようこそ、${state.login_user}さん`.displayName
+        ? `ようこそ、${state.login_user.displayName}さん`
         : "ログインしてください",
     photoURL: (state) => (state.login_user ? state.login_user.photoURL : ""),
 

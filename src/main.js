@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+// import VueAxios from 'vue-axios' //追記
+// import axios from 'axios' //追記
+
 // import { ValidationProvider, ValidationObserver } from 'vee-validate';
 // Vue.component('ValidationProvider', ValidationProvider);
 // Vue.component('ValidationObserver', ValidationObserver);
@@ -21,7 +24,7 @@ import store from './store'
 // };
 // firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
-
+// Vue.use(VueAxios,axios)
 new Vue({
   router,
   store,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>注文履歴</h1>
+    <h1 class="o-page-title">注文履歴</h1>
     <h2 v-show="ordersLog.length === 0">履歴はありません</h2>
     <div class="table_line" v-for="(logItem, index) in ordersLog" :key="index">
       <div class="block">{{ logItem.today }}</div>

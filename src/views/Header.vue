@@ -1,13 +1,30 @@
 <template>
-  <div class="header">
-    <h1>Head</h1>
-    <router-link to="/">ホーム</router-link> |
-    <router-link to="/cart">カート</router-link> |
-    <router-link to="/orderlog">注文履歴</router-link> |
-    <button @click="login">Googleアカウントでログイン</button>
-    <button @click="logout">ログアウト</button>
-    <p>{{ userName }}</p>
-    <img :src="photoURL" />
+  <div class="l-header">
+    <div class="l-header__left">
+      <button class="l-header__link">三</button>
+      <img
+        :src="require('../assets/img/header_logo.png')"
+        class="l-header__logo"
+      />
+    </div>
+    <div class="l-header__right">
+      <router-link to="/" class="l-header__link"
+        ><img :src="require('../assets/img/home.png') " class="o-logo"
+      /></router-link>
+      <router-link to="/cart" class="l-header__link">
+        <img :src="require('../assets/img/shopping-cart.png')" class="o-logo"
+      /></router-link>
+      <router-link to="/orderlog" v-show="uid" class="l-header__link" 
+        ><img :src="require('../assets/img/time-left.png')" class="o-logo"
+      /></router-link>
+      <button @click="login" v-show="!uid" class="l-header__link">
+        <img :src="require('../assets/img/user.png')" class="o-logo" />
+      </button>
+      <button @click="logout" v-show="uid" class="l-header__link">
+        <img :src="require('../assets/img/logout.png')" class="o-logo"/>
+      </button>
+            <p class="l-header__user-name">{{ userName }}</p>
+    </div>
   </div>
 </template>
 
@@ -30,13 +47,12 @@ export default {
     ...mapActions(["login", "logout", "setLoginUser", "deleteLoginUser"]),
   },
   computed: {
-    ...mapGetters(["userName", "photoURL"]),
+    ...mapGetters(["userName", "photoURL", "uid"]),
   },
 };
 </script>
 
-<style>
-.header {
-  background: peachpuff;
-}
+<style scoped lang="scss">
+@import "../style/flocss.scss";
+
 </style>

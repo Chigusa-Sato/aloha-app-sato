@@ -1,0 +1,20 @@
+.l-sidebar {
+    background-color: rgb(238, 220, 223);
+    // width: 200px; /* サイドバーのwidthを指定 */
+    // max-width: 200px; /* widthの最大値 */
+    // opacity: 0.5; /* 透過する 0に近くほど透過する */
+    /* position: fixed; 左上に要素を固定する(スクロールしても位置は固定される) */
+    // overflow-x: hidden; /* 横軸ではみ出た要素を非表示にする */
+    // box-sizing: border-box; /* paddingとborderを、widthとheightに含める */
+    // padding-left: 40px; /*サイドバー内のリンクの位置を右にずらす */
+    &__menu {
+      &-container {
+        &:hover {
+          background: rgb(245, 245, 245);
+        }
+      }
+    }
+    &__link {
+      text-decoration: none;
+    }
+  }
