@@ -16,15 +16,19 @@
           <p>{{ itemDetail.description }}</p>
         </div>
         <div class="l-detail-add">
-          <img
-            :src="require('../assets/img/minus.png')"
-            class="o-logo"
-            @click="countMinus"
-          />
-          {{ count }}
-          <img :src="require('../assets/img/plus.png')"
-            class="o-logo" @click="countPlus"/>
-
+          <div class="l-detail-add__count">
+            <img
+              :src="require('../assets/img/minus.png')"
+              class="o-logo"
+              @click="countMinus"
+            />
+            <span>{{ count }}</span>
+            <img
+              :src="require('../assets/img/plus.png')"
+              class="o-logo"
+              @click="countPlus"
+            />
+          </div>
           <button @click="addCart" class="o-button--default">
             カートに入れる ¥{{ totalPrice }}(税抜)
           </button>

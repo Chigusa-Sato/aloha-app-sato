@@ -8,6 +8,8 @@
       />
     </div>
     <div class="l-header__right">
+                  <p class="l-header__user-name">{{ userName }}</p>
+
       <router-link to="/" class="l-header__link"
         ><img :src="require('../assets/img/home.png') " class="o-logo"
       /></router-link>
@@ -23,7 +25,6 @@
       <button @click="logout" v-show="uid" class="l-header__link">
         <img :src="require('../assets/img/logout.png')" class="o-logo"/>
       </button>
-            <p class="l-header__user-name">{{ userName }}</p>
     </div>
   </div>
 </template>

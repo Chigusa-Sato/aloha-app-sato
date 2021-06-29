@@ -4,7 +4,7 @@
     background-color:$color-theme;
 
       display:flex;
-    justify-content:space-between;
+      justify-content: space-between;
     align-items:center;
     &__left{
       padding:5px;
@@ -13,12 +13,18 @@
       width:20rem;
     }
     &__right{
-      width:30%
+      width:40%;
+      display:flex;
+      align-items: center;
+
     }
     &__link{
       padding:0 10px;
       &:hover{
         background: palegoldenrod;
       }
+    }
+    &__user-name{
+text-align: center;
     }
   }

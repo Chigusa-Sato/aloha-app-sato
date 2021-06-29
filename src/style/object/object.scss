@@ -23,10 +23,22 @@
             border-color: $color-theme-vivit;
         }
     }
+    &--smalll{
+        display: inline-block;
+        margin-left:2rem;
+        padding: 1rem 2em;
+        color: $color-default;
+        border: solid 1px $color-default;
+        border-radius: 3px;
+        &:hover{
+            border-color: $color-theme-vivit;
+        }
+    }
 
 }
 .o-logo{
     width:2rem;
+    margin:10%;
 }
 p{
 font-size:20px;

@@ -23,6 +23,7 @@
     &__container {
         display: flex;
         justify-content: center;
+        align-items: center;
       }
 }
 
@@ -66,8 +67,8 @@
 
       }
       &__image{
-        width: 100%;
-        height:100%;  
+        width: 50vw;//画面幅に対して５０％の画像幅
+        height:50vw;  
       }
       &__text-container{
         background-color: $color-default-white;
@@ -78,8 +79,17 @@
           margin:10%;
           padding:10%;
           border-top: 1px solid $color-default;
+          display:flex;
+
+            &__count{
+              display:flex;
+               justify-content:space-between  ;
+               align-items: center;
+      
+            }
       }
       &__text{
         margin:1.5rem;
       }
+
   }

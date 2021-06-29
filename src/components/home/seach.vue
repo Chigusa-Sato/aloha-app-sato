@@ -12,7 +12,7 @@
         <img
           :src="require('../../assets/img/search.png')"
           @click="search"
-          class="o-logo"
+          class="search-logo"
         />
       </div>
       <p v-show="searchItems.length === 0" class="l-input-group__message">
@@ -77,5 +77,9 @@ export default {
 .search{
   padding:0 0 10% 0;
  // border:1px solid
+ &-logo{
+   width:2rem;
+   height:2rem;
+ }
 }
 </style>
