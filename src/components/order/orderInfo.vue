@@ -1,110 +1,42 @@
 <template>
   <div class="l-input-group">
     <h1 class="o-page-title">お届け先情報</h1>
-
-    <label>名前</label>
-    <ValidationObserver v-slot="ObserverProps" class="l-input-group">
-      <ValidationProvider name="名前" rules="required">
-        <div slot-scope="Providerprops" class="l-input-group__input-container">
-          <input
-            v-model="orderInfo.myName"
-            class="l-input-group__input"
-            placeholder="名前"
-          />
-          <p class="message--error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
-
-      <label>メールアドレス</label>
-      <ValidationProvider name="email" rules="required|email">
-        <div slot-scope="Providerprops" class="l-input-group__input-container">
-          <input
-            v-model="orderInfo.email"
-            class="l-input-group__input"
-            placeholder="メースアドレス"
-          />
-          <p class="message--error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
-
-      <label>郵便番号</label>
-      <ValidationProvider
-        name="郵便番号"
-        :rules="{ required: true, regex: /^[0-9]{3}[-][0-9]{4}$/ }"
-      >
-        <div slot-scope="Providerprops" class="l-input-group__input-container">
-          <input
-            type="text"
-            v-model="orderInfo.zipcode"
-            class="l-input-group__input"
-            placeholder="郵便番号"
-          />
-
-          <p class="message--error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
-
-      <label>住所</label>
-      <ValidationProvider name="住所" rules="required">
-        <div slot-scope="Providerprops" class="l-input-group__input-container">
-          <input
-            v-model="orderInfo.address"
-            class="l-input-group__input"
-            placeholder="住所"
-          />
-          <p class="message--error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
-
-      <label>電話番号</label>
-      <ValidationProvider
-        name="電話番号"
-        :rules="{ required: true, regex: /^[0-9]{3}[-][0-9]{4}[-][0-9]{4}$/ }"
-      >
-        <div slot-scope="Providerprops" class="l-input-group__input-container">
-          <input
-            type="text"
-            v-model="orderInfo.tel"
-            class="l-input-group__input"
-            placeholder="電話番号"
-          />
-          <p class="message--error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
-
-      <label>配達日時</label>
-      <div class="l-input-group__input-container">
-        <input
-          type="datetime-local"
-          @change="checkDate"
-          v-model="orderInfo.date"
-          value="<?php echo date('Y-m-d'); ?>"
-        />
-        <label for="depart" class="label-date"></label>
-      </div>
-      <p class="message--error">{{ errorMessage.dateError }}</p>
-
-      <label>支払方法</label>
-      <ValidationProvider rules="oneOf:1,2">
-        <div slot-scope="Providerprops" class="l-input-group__input-container">
-          <select
-            name="payment"
-            id="pay"
-            value="支払い方法"
-            v-model="orderInfo.pay"
-            class="l-input-group__input--pay"
+    <div class="l-input-group__wrap">
+      <label>名前</label>
+      <ValidationObserver v-slot="ObserverProps" class="l-input-group">
+        <ValidationProvider name="名前" rules="required">
+          <div
+            slot-scope="Providerprops"
+            class="l-input-group__input-container"
           >
-            <option value="1" id="1">代金引換</option>
-            <option value="2" id="2">クレジットカード決済</option>
-          </select>
-          <p class="message--error">{{ Providerprops.errors[0] }}</p>
-        </div>
-      </ValidationProvider>
+            <input
+              v-model="orderInfo.myName"
+              class="l-input-group__input"
+              placeholder="名前"
+            />
+            <p class="message--error">{{ Providerprops.errors[0] }}</p>
+          </div>
+        </ValidationProvider>
 
-      <div v-if="orderInfo.pay == '2'">
+        <label>メールアドレス</label>
+        <ValidationProvider name="email" rules="required|email">
+          <div
+            slot-scope="Providerprops"
+            class="l-input-group__input-container"
+          >
+            <input
+              v-model="orderInfo.email"
+              class="l-input-group__input"
+              placeholder="メースアドレス"
+            />
+            <p class="message--error">{{ Providerprops.errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <label>郵便番号</label>
         <ValidationProvider
-          name="クレジットカード番号"
-          :rules="{ regex: /\d[0-9]{13}/g }"
+          name="郵便番号"
+          :rules="{ required: true, regex: /^[0-9]{3}[-][0-9]{4}$/ }"
         >
           <div
             slot-scope="Providerprops"
@@ -112,28 +44,117 @@
           >
             <input
               type="text"
-              v-model="orderInfo.creditNum"
-              maxLength="16"
+              v-model="orderInfo.zipcode"
               class="l-input-group__input"
-              placeholder="カード番号"
+              placeholder="郵便番号"
+            />
+
+            <p class="message--error">{{ Providerprops.errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <label>住所</label>
+        <ValidationProvider name="住所" rules="required">
+          <div
+            slot-scope="Providerprops"
+            class="l-input-group__input-container"
+          >
+            <input
+              v-model="orderInfo.address"
+              class="l-input-group__input"
+              placeholder="住所"
             />
             <p class="message--error">{{ Providerprops.errors[0] }}</p>
           </div>
         </ValidationProvider>
-      </div>
-      <router-link to="ordercomp">
-        <div class="o-button__container">
-          <button
-            @click="purchase"
-            :disabled="ObserverProps.invalid || !ObserverProps.validated"
-            class="o-button--default"
+
+        <label>電話番号</label>
+        <ValidationProvider
+          name="電話番号"
+          :rules="{ required: true, regex: /^[0-9]{3}[-][0-9]{4}[-][0-9]{4}$/ }"
+        >
+          <div
+            slot-scope="Providerprops"
+            class="l-input-group__input-container"
           >
-            注文する
-          </button>
+            <input
+              type="text"
+              v-model="orderInfo.tel"
+              class="l-input-group__input"
+              placeholder="電話番号"
+            />
+            <p class="message--error">{{ Providerprops.errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <label>配達日時</label>
+        <div class="l-input-group__input-container">
+          <input
+            type="datetime-local"
+            @change="checkDate"
+            v-model="orderInfo.date"
+            value="<?php echo date('Y-m-d'); ?>"
+          />
+          <label for="depart" class="label-date"></label>
         </div>
-      </router-link>
-      <router-view />
-    </ValidationObserver>
+        <p class="message--error">{{ errorMessage.dateError }}</p>
+
+        <label>支払方法</label>
+        <ValidationProvider rules="oneOf:1,2">
+          <div
+            slot-scope="Providerprops"
+            class="l-input-group__input-container"
+          >
+            <select
+              name="payment"
+              id="pay"
+              value="支払い方法"
+              v-model="orderInfo.pay"
+              class="l-input-group__input--pay"
+            >
+              <option value="1" id="1">代金引換</option>
+              <option value="2" id="2">クレジットカード決済</option>
+            </select>
+            <p class="message--error">{{ Providerprops.errors[0] }}</p>
+          </div>
+        </ValidationProvider>
+
+        <div v-if="orderInfo.pay == '2'">
+          <label>カード番号</label>
+          <ValidationProvider
+            name="クレジットカード番号"
+            :rules="{ regex: /\d[0-9]{13}/g }"
+          >
+            <div
+              slot-scope="Providerprops"
+              class="l-input-group__input-container"
+            >
+              <input
+                type="text"
+                v-model="orderInfo.creditNum"
+                maxLength="16"
+                class="l-input-group__input"
+                placeholder="カード番号"
+              />
+              <p class="message--error">{{ Providerprops.errors[0] }}</p>
+            </div>
+          </ValidationProvider>
+        </div>
+
+        <router-link to="ordercomp">
+          <div class="o-button__container">
+            <button
+              @click="purchase"
+              :disabled="ObserverProps.invalid || !ObserverProps.validated"
+              class="o-button--default"
+            >
+              注文する
+            </button>
+          </div>
+        </router-link>
+        <router-view />
+      </ValidationObserver>
+    </div>
   </div>
 </template>
 

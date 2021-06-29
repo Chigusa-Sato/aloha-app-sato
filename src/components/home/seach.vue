@@ -83,4 +83,7 @@ export default {
    margin-left:10px ;
  }
 }
+.l-input-group__input{
+  width:40%;
+}
 </style>

@@ -1,24 +1,28 @@
 .l-input-group{
-	width: 80%;
 	margin: 0px auto;
-    
+    &__wrap{
+      width: 20%;
+margin: 0 auto;
+    }
     &__input{
         font: 15px/24px sans-serif;
         box-sizing: border-box;
-        width: 40%;
         padding: 0.3em;
         border: 1px solid $color-default;
         border-radius: 4px;
         outline: none;
+        width: 100%;
+
         &:focus {
             border-color: $color-theme-vivit;
         }
+
         &--pay{
-          
-  border-radius: 4px;
-  display: inline-block;
-  line-height: 1em;
-  padding: 0.5em 3.5em 0.5em 1em;
+        border-radius: 4px;
+        display: inline-block;
+        line-height: 1em;
+        padding: 0.5em 3.5em 0.5em 1em;
+        width: 100%;
 
         &:focus {
           border-color:$color-theme-vivit;
@@ -28,7 +32,6 @@
         }
         &-container{
           padding-bottom:15px;
-
         }
     }
     &__message{
@@ -111,14 +114,15 @@
 
   
 .table {
-  margin: 3px auto;  
+  margin: 0 auto;
+  width: 1000px;
   //padding: auto;
   // width: 100vw;
   &__line {
     background: $color-default-white;
     display: table flex;
     align-items: center;
-    width: 1000px;
+
     border-bottom: solid 1px $color-default;
     border-collapse: separate;
     border-spacing: 0 10px;

@@ -87,4 +87,8 @@ export default {
 
 <style scoped lang="scss">
 @import "../style/flocss.scss";
+.o-button--default{
+  margin-left:15%;
+    font-size:12px;
+}
 </style>
