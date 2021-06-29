@@ -1,21 +1,39 @@
 <template>
   <div>
     <h1 class="o-page-title">注文履歴</h1>
-    <h2 v-show="ordersLog.length === 0">履歴はありません</h2>
-    <div class="table_line" v-for="(logItem, index) in ordersLog" :key="index">
-      <div class="block">{{ logItem.today }}</div>
-      <div class="block" table__img><img :src="logItem.imagePath" /></div>
-      <div class="block">{{ logItem.itemName }}</div>
-      <div class="block">{{ logItem.num }}個</div>
-      <div class="block">¥{{ logItem.price }}</div>
-      <div class="block">小計¥{{ logItem.price * logItem.num }}</div>
-      <div class="block">
-        <button @click.once="cancel(logItem)">
-          <p v-if="logItem.status === 1 || logItem.status === 2">キャンセル</p>
-          <p v-else-if="logItem.status === 9">キャンセル済み</p>
-        </button>
+    <h2 v-show="ordersLog.length === 0" class="o-page-sub-title">履歴はありません</h2>
+
+    <div class="table" v-show="ordersLog.length !== 0">
+      <div class="table__line table__line-top">
+        <div class="table__block table__title">注文日</div>
+                <div class="table__block table__title"></div>
+        <div class="table__block table__title">商品名</div>
+        <div class="table__block table__title">個数</div>
+        <div class="table__block table__title">価格（税抜）</div>
+        <div class="table__block table__title">計（税抜）</div>
+        <div class="table__block table__title"></div>
       </div>
-      <div class="block table__title"></div>
+
+      <div
+        class="table__line"
+        v-for="(logItem, index) in ordersLog"
+        :key="index"
+      >
+        <div class="table__block table__block-first">{{ logItem.today }}</div>
+        <div class="table__block" table__img><img :src="logItem.imagePath" /></div>
+        <div class="table__block">{{ logItem.itemName }}</div>
+        <div class="table__block">{{ logItem.num }}個</div>
+        <div class="table__block">¥{{ logItem.price }}</div>
+        <div class="table__block">小計¥{{ logItem.price * logItem.num }}</div>
+        <div class="table__block">
+          <button @click.once="cancel(logItem)" class="o-button--default">
+            <p v-if="logItem.status === 1 || logItem.status === 2">
+              キャンセル
+            </p>
+            <p v-else-if="logItem.status === 9">キャンセル済み</p>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -62,20 +80,10 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.table_line {
-  display: table;
-  width: 600px;
-  img {
-    width: 100%;
+@import "../style/flocss.scss";
+.o-button--default{
+  p{
+    font-size: 0.5rem;
   }
-}
-
-.block {
-  display: table-cell;
-  border: solid 1px #999;
-  width: 200px;
-}
-.table__title {
-  width: 150px;
 }
 </style>

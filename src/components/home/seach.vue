@@ -1,7 +1,8 @@
 <template>
   <div class="search">
-    <h1 class="o-page-title">検索</h1>
     <div class="l-input-group">
+                <h1 class="o-page-title">検索</h1>
+
       <div class="l-input-group__container">
         <input
           type="text"
@@ -76,10 +77,10 @@ export default {
 @import "../../style/flocss.scss";
 .search{
   padding:0 0 10% 0;
- // border:1px solid
  &-logo{
    width:2rem;
    height:2rem;
+   margin-left:10px ;
  }
 }
 </style>

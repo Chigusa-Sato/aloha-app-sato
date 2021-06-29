@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1 class="o-page-title">カート</h1>
-    <h2 v-show="carts.length == 0">商品はありません</h2>
-    <div class="table">
+    <h2 v-show="carts.length == 0" class="o-page-sub-title">商品はありません</h2>
+    <div class="table" v-show="carts.length !== 0">
       <div class="table__line table__line-top">
         <div class="table__block table__title"></div>
         <div class="table__block table__title">商品名</div>
@@ -29,9 +29,15 @@
       </div>
     </div>
     <div>
-      <button @click="loginCheck" v-show="carts.length !== 0" class="o-button--default">
-        注文に進む
-      </button>
+      <div class="o-button__container">
+        <button
+          @click="loginCheck"
+          v-show="carts.length !== 0"
+          class="o-button--default"
+        >
+          注文に進む
+        </button>
+      </div>
       <!-- <div v-if="uid && carts.length !== 0"> -->
       <div v-show="toOrderInfo && this.carts.length !== 0">
         <OrderInfo></OrderInfo>
@@ -103,41 +109,4 @@ export default {
 
 <style scoped lang="scss">
 @import "../style/flocss.scss";
-
-.table {
-  padding:auto;
-    // width: 100vw;
-  &__line {
-    background: #f5f5f5;
-    display: table flex;
-    align-items: center;
-    width: 1000px;
-    border-bottom: solid 1px #666;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    img {
-      width: 100%;
-    }
-    &-top {
-      border-top: solid 1px #666;
-    }
-  }
-  &__title {
-    font-weight: bold;
-  }
-  &__block {
-    display: table-cell;
-    width: 10%;
-    text-align: center;
-    vertical-align: middle;
-    padding: 0 10px;
-
-    &-logo {
-      padding: 35%;
-    }
-    &-first {
-      border-right: solid 1px #34495e;
-    }
-  }
-}
 </style>

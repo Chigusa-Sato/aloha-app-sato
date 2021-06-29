@@ -1,13 +1,15 @@
 @import "../utility/utility.scss";
 
 .o-page-title{
+    display: block;
+    padding-top:100px;
     text-align:center;
     font-size: 2.5rem;
     font-weight: bold;
 }
 .o-page-sub-title{
     text-align:center;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: bold;
 
 }
@@ -23,6 +25,11 @@
             border-color: $color-theme-vivit;
         }
     }
+    &__container{
+        display: flex;
+        justify-content: center;
+        margin:20px;
+          }
     &--smalll{
         display: inline-block;
         margin-left:2rem;

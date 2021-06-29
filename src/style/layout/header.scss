@@ -1,6 +1,7 @@
 @import "../utility/utility.scss";
 
 .l-header {
+  position: fixed;
     background-color:$color-theme;
 
       display:flex;
@@ -21,7 +22,8 @@
     &__link{
       padding:0 10px;
       &:hover{
-        background: palegoldenrod;
+        background: $color-theme-warm;
+        padding: 10px;
       }
     }
     &__user-name{

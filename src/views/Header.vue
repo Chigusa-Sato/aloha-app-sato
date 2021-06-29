@@ -1,7 +1,6 @@
 <template>
   <div class="l-header">
     <div class="l-header__left">
-      <button class="l-header__link">三</button>
       <img
         :src="require('../assets/img/header_logo.png')"
         class="l-header__logo"
