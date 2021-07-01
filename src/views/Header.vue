@@ -10,19 +10,19 @@
                   <p class="l-header__user-name">{{ userName }}</p>
 
       <router-link to="/" class="l-header__link"
-        ><img :src="require('../assets/img/home.png') " class="o-logo"
+        ><img :src="require('../assets/img/home.png') " class="c-logo"
       /></router-link>
       <router-link to="/cart" class="l-header__link">
-        <img :src="require('../assets/img/shopping-cart.png')" class="o-logo"
+        <img :src="require('../assets/img/shopping-cart.png')" class="c-logo"
       /></router-link>
       <router-link to="/orderlog" v-show="uid" class="l-header__link" 
-        ><img :src="require('../assets/img/time-left.png')" class="o-logo"
+        ><img :src="require('../assets/img/time-left.png')" class="c-logo"
       /></router-link>
       <button @click="login" v-show="!uid" class="l-header__link">
-        <img :src="require('../assets/img/user.png')" class="o-logo" />
+        <img :src="require('../assets/img/user.png')" class="c-logo" />
       </button>
       <button @click="logout" v-show="uid" class="l-header__link">
-        <img :src="require('../assets/img/logout.png')" class="o-logo"/>
+        <img :src="require('../assets/img/logout.png')" class="c-logo"/>
       </button>
     </div>
   </div>

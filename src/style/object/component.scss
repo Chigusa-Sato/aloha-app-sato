@@ -1,22 +1,20 @@
 @import "../utility/utility.scss";
 
-.o-page-title{
+.c-page-title{
     display: block;
     padding-top:100px;
     text-align:center;
     font-size: 2.5rem;
     font-weight: bold;
 }
-.o-page-sub-title{
-    text-align:center;
+.c-page-sub-title{
+    @extend .c-page-title;
     font-size: 1.3rem;
-    font-weight: bold;
-
 }
-.o-button{
+
+.c-button{
     &--default{
         display: inline-block;
-        // margin-left:2rem;
         padding: 1rem 2em;
         color: $color-default;
         border: solid 1px $color-default;
@@ -25,28 +23,18 @@
             border-color: $color-theme-vivit;
         }
     }
+
     &__container{
         display: flex;
         justify-content: center;
         margin:20px;
           }
-    &--smalll{
-        display: inline-block;
-        margin-left:2rem;
-        padding: 1rem 2em;
-        color: $color-default;
-        border: solid 1px $color-default;
-        border-radius: 3px;
         &:hover{
             border-color: $color-theme-vivit;
-        }
     }
 
 }
-.o-logo{
+.c-logo{
     width:2rem;
     margin:10%;
-}
-p{
-font-size:20px;
 }

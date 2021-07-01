@@ -1,17 +1,17 @@
 <template>
-  <div class="l-input-group">
-    <h1 class="o-page-title">お届け先情報</h1>
-    <div class="l-input-group__wrap">
+  <div class="p-input-group">
+    <h1 class="c-page-title">お届け先情報</h1>
+    <div class="p-input-group__wrap">
       <label>名前</label>
-      <ValidationObserver v-slot="ObserverProps" class="l-input-group">
+      <ValidationObserver v-slot="ObserverProps" class="p-input-group">
         <ValidationProvider name="名前" rules="required">
           <div
             slot-scope="Providerprops"
-            class="l-input-group__input-container"
+            class="p-input-group__input-container"
           >
             <input
               v-model="orderInfo.myName"
-              class="l-input-group__input"
+              class="p-input-group__input"
               placeholder="名前"
             />
             <p class="message--error">{{ Providerprops.errors[0] }}</p>
@@ -22,11 +22,11 @@
         <ValidationProvider name="email" rules="required|email">
           <div
             slot-scope="Providerprops"
-            class="l-input-group__input-container"
+            class="p-input-group__input-container"
           >
             <input
               v-model="orderInfo.email"
-              class="l-input-group__input"
+              class="p-input-group__input"
               placeholder="メースアドレス"
             />
             <p class="message--error">{{ Providerprops.errors[0] }}</p>
@@ -40,12 +40,12 @@
         >
           <div
             slot-scope="Providerprops"
-            class="l-input-group__input-container"
+            class="p-input-group__input-container"
           >
             <input
               type="text"
               v-model="orderInfo.zipcode"
-              class="l-input-group__input"
+              class="p-input-group__input"
               placeholder="郵便番号"
             />
 
@@ -57,11 +57,11 @@
         <ValidationProvider name="住所" rules="required">
           <div
             slot-scope="Providerprops"
-            class="l-input-group__input-container"
+            class="p-input-group__input-container"
           >
             <input
               v-model="orderInfo.address"
-              class="l-input-group__input"
+              class="p-input-group__input"
               placeholder="住所"
             />
             <p class="message--error">{{ Providerprops.errors[0] }}</p>
@@ -75,12 +75,12 @@
         >
           <div
             slot-scope="Providerprops"
-            class="l-input-group__input-container"
+            class="p-input-group__input-container"
           >
             <input
               type="text"
               v-model="orderInfo.tel"
-              class="l-input-group__input"
+              class="p-input-group__input"
               placeholder="電話番号"
             />
             <p class="message--error">{{ Providerprops.errors[0] }}</p>
@@ -88,14 +88,14 @@
         </ValidationProvider>
 
         <label>配達日時</label>
-        <div class="l-input-group__input-container">
+        <div class="p-input-group__input-container">
           <input
             type="datetime-local"
             @change="checkDate"
             v-model="orderInfo.date"
             value="<?php echo date('Y-m-d'); ?>"
           />
-          <label for="depart" class="label-date"></label>
+          <label for="depart" class="labep-date"></label>
         </div>
         <p class="message--error">{{ errorMessage.dateError }}</p>
 
@@ -103,14 +103,14 @@
         <ValidationProvider rules="oneOf:1,2">
           <div
             slot-scope="Providerprops"
-            class="l-input-group__input-container"
+            class="p-input-group__input-container"
           >
             <select
               name="payment"
               id="pay"
               value="支払い方法"
               v-model="orderInfo.pay"
-              class="l-input-group__input--pay"
+              class="p-input-group__input--pay"
             >
               <option value="1" id="1">代金引換</option>
               <option value="2" id="2">クレジットカード決済</option>
@@ -127,13 +127,13 @@
           >
             <div
               slot-scope="Providerprops"
-              class="l-input-group__input-container"
+              class="p-input-group__input-container"
             >
               <input
                 type="text"
                 v-model="orderInfo.creditNum"
                 maxLength="16"
-                class="l-input-group__input"
+                class="p-input-group__input"
                 placeholder="カード番号"
               />
               <p class="message--error">{{ Providerprops.errors[0] }}</p>
@@ -142,11 +142,11 @@
         </div>
 
         <router-link to="ordercomp">
-          <div class="o-button__container">
+          <div class="c-button__container">
             <button
               @click="purchase"
               :disabled="ObserverProps.invalid || !ObserverProps.validated"
-              class="o-button--default"
+              class="c-button--default"
             >
               注文する
             </button>
@@ -257,16 +257,6 @@ export default {
   },
   computed: {
     ...mapGetters(["cartItems"]),
-    // isRequired:function(){
-    //   return  this.orderInfo.pay === "2"
-
-    // }
-    //     ...mapState({
-    //   zipcode: state => state.zipcode
-    // }),
-    // address() {
-    //   return this.$store.state.address;
-    // }
   },
 };
 </script>

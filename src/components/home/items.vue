@@ -1,15 +1,15 @@
 <template>
   <div>
-    <p class="o-page-title">商品一覧</p>
-    <div class="l-card">
-      <div v-for="item in items" :key="item.id" class="l-card__aside">
+    <p class="c-page-title">商品一覧</p>
+    <div class="p-card">
+      <div v-for="item in items" :key="item.id" class="p-card__aside">
         <router-link :to="{ name: 'ItemDetail', params: { itemid: item.id } }">
-          <div class="l-card__figure">
-            <img :src="item.imagePath" class="l-card__image" />
+          <div class="p-card__figure">
+            <img :src="item.imagePath" class="p-card__image" />
           </div>
-          <div class="l-card__content">
-            <p class="l-card__link">{{ item.name }}</p>
-            <p class="l-card__link">{{ item.price }}円</p>
+          <div class="p-card__content">
+            <p class="p-card__link">{{ item.name }}</p>
+            <p class="p-card__link">{{ item.price }}円</p>
           </div>
         </router-link>
       </div>

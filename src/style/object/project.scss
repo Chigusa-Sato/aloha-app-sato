@@ -1,4 +1,4 @@
-.l-input-group{
+.p-input-group{
 	margin: 0px auto;
     &__wrap{
       width: 20%;
@@ -46,7 +46,7 @@ margin: 0 auto;
       }
 }
 
-.l-card {
+.p-card {
     display: flex;
      flex-wrap: wrap;
      justify-content:space-around; 
@@ -77,7 +77,7 @@ margin: 0 auto;
   }
   }
 
-  .l-detail{
+  .p-detail{
       &__container{
         display: flex;
         justify-content: center;
@@ -116,8 +116,6 @@ margin: 0 auto;
 .table {
   margin: 0 auto;
   width: 1000px;
-  //padding: auto;
-  // width: 100vw;
   &__line {
     background: $color-default-white;
     display: table flex;

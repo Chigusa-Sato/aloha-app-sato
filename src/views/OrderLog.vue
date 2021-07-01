@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="o-page-title">注文履歴</h1>
-    <h2 v-show="ordersLog.length === 0" class="o-page-sub-title">履歴はありません</h2>
+    <h1 class="c-page-title">注文履歴</h1>
+    <h2 v-show="ordersLog.length === 0" class="c-page-sub-title">履歴はありません</h2> 
 
     <div class="table" v-show="ordersLog.length !== 0">
       <div class="table__line table__line-top">
@@ -26,11 +26,11 @@
         <div class="table__block">¥{{ logItem.price }}</div>
         <div class="table__block">小計¥{{ logItem.price * logItem.num }}</div>
         <div class="table__block">
-          <button @click.once="cancel(logItem)" class="o-button--default">
-            <p v-if="logItem.status === 1 || logItem.status === 2">
+          <button @click.once="cancel(logItem)" class="c-button--default">
+            <p v-show="logItem.status == 1 || logItem.status == 2">
               キャンセル
             </p>
-            <p v-else-if="logItem.status === 9">キャンセル済み</p>
+            <p v-show="logItem.status == 9" class="u-button--canceled">キャンセル済み</p>
           </button>
         </div>
       </div>
@@ -44,8 +44,7 @@ import { mapActions } from "vuex";
 export default {
   data() {
     return {
-      storeStateOrders: this.$store.state.orders,
-      //   ordersLog: this.$store.getters.ordersLog,
+      storeStateOrders:this.$store.state.orders,
     };
   },
   methods: {
@@ -54,9 +53,7 @@ export default {
       let cancelOrder = this.$store.state.orders.find(
         (store) => store.orderId === logItem.orderId
       );
-      console.log(cancelOrder);
       let cancelOrderId = cancelOrder.orderId;
-      console.log(cancelOrderId);
 
       this.cancelOrder({
         cancelOrderId: cancelOrderId,
@@ -65,23 +62,16 @@ export default {
     },
     ...mapActions(["cancelOrder"]),
   },
-  mounted() {
-    // this.ordersLog = this.$store.getters.ordersLog;
-    console.log("mounted");
-    console.log(this.$store.getters.ordersLog);
-  },
   computed: {
     ordersLog() {
-      console.log("computed");
-      console.log(this.$store.getters.logItems);
-      return this.$store.getters.logItems;
-    },
+     return this.$store.getters.logItems;
+   },
   },
 };
 </script>
 <style scoped lang="scss">
 @import "../style/flocss.scss";
-.o-button--default{
+.c-button--default{
   p{
     font-size: 0.5rem;
   }

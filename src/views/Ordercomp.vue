@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="o-page-title">ご注文が完了しました！</h1>
-    <p class="o-page-sub-title">注文内容は注文履歴で確認できます。</p>
-    <div class="o-button__container">
+    <h1 class="c-page-title">ご注文が完了しました！</h1>
+    <p class="c-page-sub-title">注文内容は注文履歴で確認できます。</p>
+    <div class="c-button__container">
       <router-link to="/orderlog">
-        <button class="o-button--default">履歴を確認する</button>
+        <button class="c-button--default">履歴を確認する</button>
       </router-link>
     </div>
   </div>

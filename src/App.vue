@@ -18,7 +18,6 @@ export default {
   components: {
     Header,
     Footer,
-    //Sidenav,
   },
   methods: {
     ...mapActions(["setLoginUser", "deleteLoginUser", "fetchOrders"]),
@@ -34,10 +33,7 @@ export default {
         this.$store.state.orders = [];
       }
     });
-  },
-  created() {
-    console.log(this.$store.state.orders); //storeのordersがレンダリングされるたびにリセットされている
-  },
+  }
 };
 </script>
 
@@ -46,12 +42,6 @@ export default {
 
 .app {
   color: $color-default;
-  // font-family: Avenir, Helvetica, Arial, sans-serif;
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
-  // text-align: center;
-  // color: #2c3e50;
-  // display:grid;
   grid-template-areas: "header header header" "sidenav main main" "footer footer footer";
   &__header {
     grid-area: header;
@@ -74,35 +64,4 @@ export default {
   }
 }
 
-// .nav {
-//   a {
-//     font-weight: bold;
-//     color: #2c3e50;
-
-//     &.router-link-exact-active {
-//       color: #42b983;
-//     }
-
-//   }
-//   &__.sidebar-area {
-//   /* 左側に固定 */
-//   float: left;
-// }
-// &__.footer-area {
-//   margin-top: 40px;
-// }
-
-// }
-
-// .main {
-//   // /* display: flex; 要素を横並びにする */
-//   // flex-direction: column; /* 要素の並び順の主軸を指定 上 => 下 */
-//   // min-height: 100vh; /* 要素の高さの最小値を指定 vhはviewport(表示領域) heightの略 */
-
-//   // /* サイドバーのwidth分だけ範囲を削除 */
-//   // width: calc(100% - 200px);
-
-//   // /* サイドバーで隠れるので右に寄せる */
-//   // margin: 0 0 0 180px;
-// }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="o-page-title">カート</h1>
-    <h2 v-show="carts.length == 0" class="o-page-sub-title">商品はありません</h2>
+    <h1 class="c-page-title">カート</h1>
+    <h2 v-show="carts.length == 0" class="c-page-sub-title">商品はありません</h2>
     <div class="table" v-show="carts.length !== 0">
       <div class="table__line table__line-top">
         <div class="table__block table__title"></div>
@@ -29,11 +29,11 @@
       </div>
     </div>
     <div>
-      <div class="o-button__container">
+      <div class="c-button__container">
         <button
           @click="loginCheck"
           v-show="carts.length !== 0"
-          class="o-button--default"
+          class="c-button--default"
         >
           注文に進む
         </button>

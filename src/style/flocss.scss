@@ -1,21 +1,17 @@
+
+//foundation
 @import 'foundation/foundation.scss';
 
-/* Header */
+/* layout */
  @import 'layout/header.scss';
- /* Main */
  @import 'layout/main.scss';
-
  @import 'layout/sidenav.scss';
- /* Footer */
-
  @import 'layout/footer.scss';
 
-//  layout
- @import 'layout/layout.scss';
+//object
+ @import 'object/project.scss';
+ @import 'object/component.scss';
 
- 
- /* Project*/
- @import 'object/object.scss';
  
  /* Utility */
  @import 'utility/utility.scss';

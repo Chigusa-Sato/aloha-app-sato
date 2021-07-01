@@ -5,6 +5,7 @@ import Cart from '../views/Cart.vue'
 import OrderLog from '../views/OrderLog.vue'
 import OrderComp from '../views/Ordercomp.vue'
 import ItemDetail from '../views/ItemDetail.vue'
+import OrderInfo from '../components/order/orderInfo.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/ordercomp',
     name: 'OrderComp',
     component: OrderComp
+  },
+  {
+    path:'/orderInfo',
+    name: 'OrderInfo',
+    component: OrderInfo
   }
 
 ]

@@ -1,38 +1,41 @@
 <template>
-  <div class="l-detail">
-    <h1 class="o-page-title">商品詳細</h1>
-    <div class="l-detail__container">
+  <div class="p-detail">
+    <h1 class="c-page-title">商品詳細</h1>
+    <div class="p-detail__container">
       <div>
-        <img :src="itemDetail.imagePath" class="l-detail__image" />
+        <img :src="itemDetail.imagePath" class="p-detail__image" />
       </div>
-      <div class="l-detail__text-container">
-        <div class="l-detail__text">
-          <p class="o-page-sub-title">{{ itemDetail.name }}</p>
+      <div class="p-detail__text-container">
+        <div class="p-detail__text">
+          <p class="c-page-sub-title">{{ itemDetail.name }}</p>
         </div>
-        <div class="l-detail__text">
+        <div class="p-detail__text">
           <p>¥{{ itemDetail.price }}(税抜)</p>
         </div>
-        <div class="l-detail__text">
+        <div class="p-detail__text">
           <p>{{ itemDetail.description }}</p>
         </div>
-        <div class="l-detail-add">
-          <div class="l-detail-add__count">
+        <div class="p-detail-add">
+          <div class="p-detail-add__count">
             <img
               :src="require('../assets/img/minus.png')"
-              class="o-logo"
+              class="c-logo countMinus"
               @click="countMinus"
             />
             <span>{{ count }}</span>
             <img
               :src="require('../assets/img/plus.png')"
-              class="o-logo"
+              class="c-logo countPlus"
               @click="countPlus"
             />
           </div>
-          <button @click="addCart" class="o-button--default">
+          <button @click="addCart" class="c-button--default">
             カートに入れる ¥{{ totalPrice }}(税抜)
           </button>
+                   
+
         </div>
+         <p >{{message}}</p>
       </div>
     </div>
   </div>
@@ -48,6 +51,7 @@ export default {
       count: 0,
       totalPrice: 0,
       storeOrder: this.$store.state.orders,
+      message:""
     };
   },
   methods: {
@@ -64,6 +68,10 @@ export default {
       }
     },
     addCart() {
+      if(this.count===0){
+        this.message="個数を選択してください"
+      }else{
+
       console.log("itemDetailログインしている");
       let order = {};
       order.id = this.itemDetail.id;
@@ -73,10 +81,10 @@ export default {
       this.addOrder(order).then(() => {});
       console.log(order);
       this.$router.push({ name: "Cart" }, () => {});
-    },
+    }},
     ...mapActions(["addOrder"]),
   },
-  created() {
+   created() {
     const item = this.$store.getters.getItemById(this.$route.params.itemid);
     if (item) {
       this.itemDetail = item; //dataオプションにgetItemByIDでとってきた値を入れている
@@ -87,7 +95,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../style/flocss.scss";
-.o-button--default{
+.c-button--default{
   margin-left:15%;
     font-size:12px;
 }

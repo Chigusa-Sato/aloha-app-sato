@@ -1,12 +1,12 @@
 <template>
   <div class="search">
-    <div class="l-input-group">
-                <h1 class="o-page-title">検索</h1>
+    <div class="p-input-group">
+                <h1 class="c-page-title">検索</h1>
 
-      <div class="l-input-group__container">
+      <div class="p-input-group__container">
         <input
           type="text"
-          class="l-input-group__input"
+          class="p-input-group__input"
           v-model="keyword"
           placeholder="type something"
         />
@@ -16,20 +16,20 @@
           class="search-logo"
         />
       </div>
-      <p v-show="searchItems.length === 0" class="l-input-group__message">
+      <p v-show="searchItems.length === 0" class="p-input-group__message">
         該当する商品がありません
       </p>
     </div>
 
-    <div class="l-card">
-      <div v-for="item in searchItems" :key="item.id" class="l-card__aside">
+    <div class="p-card">
+      <div v-for="item in searchItems" :key="item.id" class="p-card__aside">
         <router-link :to="{ name: 'ItemDetail', params: { itemid: item.id } }">
-          <div class="l-card__figure">
-            <img :src="item.imagePath" class="l-card__image" />
+          <div class="p-card__figure">
+            <img :src="item.imagePath" class="p-card__image" />
           </div>
-          <div class="l-card__content">
-            <p class="l-card__link">{{ item.name }}</p>
-            <p class="l-card__link">{{ item.price }}円</p>
+          <div class="p-card__content">
+            <p class="p-card__link">{{ item.name }}</p>
+            <p class="p-card__link">{{ item.price }}円</p>
           </div>
         </router-link>
       </div>
@@ -63,9 +63,6 @@ export default {
             this.resultMessage = "検索結果";
             this.searchItems.push(this.$store.state.items[i]);
           }
-          // if (itemsName.indexOf(this.keyword) == -1){
-          //         this.resultMessage="検索結果";
-          // }
         }
       }
     },
@@ -83,7 +80,7 @@ export default {
    margin-left:10px ;
  }
 }
-.l-input-group__input{
+.p-input-group__input{
   width:40%;
 }
 </style>
