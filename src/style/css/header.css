@@ -1,0 +1,33 @@
+.l-header {
+  background-color: #eedcdf;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.l-header__left {
+  padding: 5px;
+}
+
+.l-header__logo {
+  width: 20rem;
+}
+
+.l-header__right {
+  width: 30%;
+}
+
+.l-header__link {
+  padding: 0 10px;
+}
+
+.l-header__link:hover {
+  background: palegoldenrod;
+}
+/*# sourceMappingURL=header.css.map */

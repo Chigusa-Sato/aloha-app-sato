@@ -1,0 +1,151 @@
+.p-input-group{
+	margin: 0px auto;
+    &__wrap{
+      width: 20%;
+margin: 0 auto;
+    }
+    &__input{
+        font: 15px/24px sans-serif;
+        box-sizing: border-box;
+        padding: 0.3em;
+        border: 1px solid $color-default;
+        border-radius: 4px;
+        outline: none;
+        width: 100%;
+
+        &:focus {
+            border-color: $color-theme-vivit;
+        }
+
+        &--pay{
+        border-radius: 4px;
+        display: inline-block;
+        line-height: 1em;
+        padding: 0.5em 3.5em 0.5em 1em;
+        width: 100%;
+
+        &:focus {
+          border-color:$color-theme-vivit;
+          outline: 0;
+        }
+        
+        }
+        &-container{
+          padding-bottom:15px;
+        }
+    }
+    &__message{
+        text-align: center;
+        display: block;
+        margin-top: 20px;
+    }
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+}
+
+.p-card {
+    display: flex;
+     flex-wrap: wrap;
+     justify-content:space-around; 
+    align-content :space-around ;
+    &__aside {
+      display:flex;
+    justify-content: center;
+      width: 23%;
+      overflow: hidden;
+    border-radius: 8px;
+    margin:30px 0 0 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,.2);
+      background: $color-default-white;
+      &:hover {
+              box-shadow: 0 4px 15px rgba(0,0,0,.5);
+          }
+    }
+    &__image {
+      width: 340px;
+      height:280px;
+    }
+    &__content{
+      text-align: center;
+      color:$color-default;
+    }
+    &__link{
+        text-decoration: none;
+  }
+  }
+
+  .p-detail{
+      &__container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:1%;
+
+      }
+      &__image{
+        width: 45vw;//画面幅に対して５０％の画像幅
+        height:40vw;  
+      }
+      &__text-container{
+        background-color: $color-default-white;
+        text-align: center;
+        margin:1%;
+      }
+      &-add{
+          margin:10%;
+          padding:10%;
+          border-top: 1px solid $color-default;
+          display:flex;
+
+            &__count{
+              display:flex;
+               justify-content:space-between  ;
+               align-items: center;
+      
+            }
+      }
+      &__text{
+        margin:1.5rem;
+      }
+  }
+
+  
+.table {
+  margin: 0 auto;
+  width: 1000px;
+  &__line {
+    background: $color-default-white;
+    display: table flex;
+    align-items: center;
+
+    border-bottom: solid 1px $color-default;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    img {
+      width: 100%;
+    }
+    &-top {
+      border-top: solid 1px $color-default;
+    }
+  }
+  &__title {
+    font-weight: bold;
+  }
+  &__block {
+    display: table-cell;
+    width: 10%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0 10px;
+
+    &-logo {
+      padding: 35%;
+    }
+    &-first {
+      border-right: solid 1px #34495e;
+    }
+  }
+}

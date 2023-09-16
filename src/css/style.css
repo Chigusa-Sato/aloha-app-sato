@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/* Header */
+/* Main */
+.sidebar {
+  background-color: #eedcdf;
+  /* position: fixed; 左上に要素を固定する(スクロールしても位置は固定される) */
+}
+
+.sidebar__menu-container:hover {
+  background: whitesmoke;
+}
+
+.sidebar__link {
+  text-decoration: none;
+}
+
+/* Footer */
+/* Compornent */
+/* Project*/
+/* Utility */
+/*# sourceMappingURL=style.css.map */

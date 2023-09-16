@@ -1,0 +1,185 @@
+@charset "UTF-8";
+html, body, h1, h2, h3, h4, ul, ol, dl, li, dt, dd, p, div, span, img, a, table, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+  font-size: 100%;
+  font-family: 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, Osaka, 'MS PGothic', arial, helvetica, sans-serif;
+  vertical-align: baseline;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 1.8;
+  word-wrap: break-word;
+}
+
+/* Header */
+.l-header {
+  background-color: #eedcdf;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.l-header__left {
+  padding: 5px;
+}
+
+.l-header__logo {
+  width: 20rem;
+}
+
+.l-header__right {
+  width: 30%;
+}
+
+.l-header__link {
+  padding: 0 10px;
+}
+
+.l-header__link:hover {
+  background: palegoldenrod;
+}
+
+/* Main */
+.l-sidebar {
+  background-color: #eedcdf;
+  /* position: fixed; 左上に要素を固定する(スクロールしても位置は固定される) */
+}
+
+.l-sidebar__menu-container:hover {
+  background: whitesmoke;
+}
+
+.l-sidebar__link {
+  text-decoration: none;
+}
+
+/* Footer */
+.l-footer {
+  background-color: #eedcdf;
+  text-align: center;
+}
+
+.l-footer__text {
+  color: #505050;
+}
+
+.l-input-group {
+  position: relative;
+  width: 80%;
+  margin: 40px auto;
+}
+
+.l-input-group__input {
+  font: 15px/24px sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 40%;
+  margin: 8px 8px;
+  padding: 0.3em;
+  border: 1px solid #555555;
+  border-radius: 4px;
+  outline: none;
+}
+
+.l-input-group__input:focus {
+  border-color: #c94185;
+}
+
+.l-input-group__message {
+  text-align: center;
+}
+
+.l-input-group__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.l-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
+}
+
+.l-card__aside {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 23%;
+  overflow: hidden;
+  border-radius: 8px;
+  margin: 30px 0 0 0;
+  -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: whitesmoke;
+}
+
+.l-card__aside:hover {
+  -webkit-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.l-card__image {
+  width: 340px;
+  height: 280px;
+}
+
+.l-card__content {
+  text-align: center;
+  color: #555555;
+}
+
+.l-card__link {
+  text-decoration: none;
+}
+
+/* Project*/
+.o-page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.o-button--default {
+  display: inline-block;
+  padding: 0rem 2em;
+  color: #555555;
+  border: solid 1px #555555;
+  border-radius: 3px;
+}
+
+.o-button--default:hover {
+  border-color: #c94185;
+}
+
+.o-logo {
+  width: 3rem;
+}
+
+p {
+  font-size: 20px;
+}
+
+/* Utility */
+/*# sourceMappingURL=flocss.css.map */

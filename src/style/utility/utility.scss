@@ -1,0 +1,22 @@
+$color-default: #555555;
+$color-default-white:whitesmoke;
+$color-theme:rgb(238, 220, 223);
+$color-theme-warm:rgba(255, 160, 176, 0.493);
+$color-theme-vivit:rgb(201, 65, 133);
+
+.message{
+    &--error{
+            color: red;
+            font-size:0.6rem;
+
+    }
+}
+
+
+.u-color--canceled{
+    color: red;
+    
+    
+}
+
+

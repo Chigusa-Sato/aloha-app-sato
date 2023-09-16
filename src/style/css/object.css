@@ -1,0 +1,33 @@
+.o-page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.o-page-sub-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.o-button--default {
+  display: inline-block;
+  margin-left: 2rem;
+  padding: 1rem 2em;
+  color: #555555;
+  border: solid 1px #555555;
+  border-radius: 3px;
+}
+
+.o-button--default:hover {
+  border-color: #c94185;
+}
+
+.o-logo {
+  width: 2rem;
+}
+
+p {
+  font-size: 20px;
+}
+/*# sourceMappingURL=object.css.map */
